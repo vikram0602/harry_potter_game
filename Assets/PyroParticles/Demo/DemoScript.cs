@@ -5,6 +5,8 @@ namespace DigitalRuby.PyroParticles
 {
     public class DemoScript : MonoBehaviour
     {
+
+        public bool magnetDetectionEanbled = true;
         public GameObject[] Prefabs;
         public Light Sun;
         public Camera SideCamera;
@@ -117,11 +119,12 @@ namespace DigitalRuby.PyroParticles
 
         private void UpdateEffect()
         {
-			if (Input.GetKeyDown(KeyCode.Y))
+			if (Input.GetKeyDown(KeyCode.Y) || CardboardMagnetSensor.CheckIfWasClicked())
             {
                // GameObject gshot = Instantiate(shot, this.transform.position, this.transform.rotation) as GameObject;
 
                 StartCurrent();
+                CardboardMagnetSensor.ResetClick();
             }
             /*else if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus))
             {
@@ -235,6 +238,8 @@ namespace DigitalRuby.PyroParticles
         private void Start()
         {
             originalRotation = transform.localRotation;
+            CardboardMagnetSensor.SetEnabled(magnetDetectionEanbled);
+
             UpdateUI();
         }
 
